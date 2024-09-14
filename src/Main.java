@@ -47,6 +47,7 @@ public class Main {
             return true;
         }
     }
+//    Would you like to play again? (Y/N)
 
     public static boolean hasContestantWon(char[][] board, char symbol) {
         return (board[0][0] == symbol && board[0][1] == symbol && board[0][2] == symbol) ||
