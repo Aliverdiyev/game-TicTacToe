@@ -9,27 +9,33 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to TicTacToe!");
 
-        char[][] board = {{' ', ' ', ' '},
-                {' ', ' ', ' '},
-                {' ', ' ', ' '}};
+        do {
+            char[][] board = {{' ', ' ', ' '},
+                    {' ', ' ', ' '},
+                    {' ', ' ', ' '}};
 
-        printBoard(board);
+            printBoard(board);
 
-        while (true) {
-            playerTurn(board, scanner);
-            if (isGameFinished(board)) {
-                break;
+            while (true) {
+                playerTurn(board, scanner);
+                if (isGameFinished(board)) {
+                    break;
+                }
+                printBoard(board);
+                computerTurn(board);
+                if (isGameFinished(board)) {
+                    break;
+                }
+                printBoard(board);
             }
-            printBoard(board);
-            computerTurn(board);
-            if (isGameFinished(board)) {
-                break;
-            }
-            printBoard(board);
-        }
-        System.out.println("Your score is: " + playerScoreCounter + "\nComputer score is: " + computerScoreCounter);
+
+            System.out.println("Your score is: " + playerScoreCounter + "\nComputer score is: " + computerScoreCounter);
+            System.out.println("Do you want to play again? (Y/N)");
+
+        } while (scanner.nextLine().trim().equalsIgnoreCase("Y")); // Use nextLine().trim() here to avoid unwanted spaces
+
         scanner.close();
-        System.out.println("Game over!" + "\nThanks for joining <3");
+        System.out.println("Thanks for playing <3");
     }
 
     public static boolean isGameFinished(char[][] board) {
@@ -72,7 +78,7 @@ public class Main {
         Random random = new Random();
         int computerMove;
         do {
-            computerMove = random.nextInt(1, 9);
+            computerMove = random.nextInt(1, 10);
         } while (!isValidMove(board, Integer.toString(computerMove)));
         System.out.println("Computer choose: " + computerMove);
         placeMove(board, Integer.toString(computerMove), 'O');
@@ -97,7 +103,7 @@ public class Main {
         String playerMove;
         while (true) {
             System.out.println("Would you like to play? (1-9)");
-            playerMove = scanner.nextLine();
+            playerMove = scanner.nextLine().trim(); // Added .trim() here for safety
             if (isValidMove(board, playerMove)) {
                 break;
             } else {
