@@ -2,13 +2,19 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    static int playerScoreCounter = 0;
+    static int computerScoreCounter = 0;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to TicTacToe!");
+
         char[][] board = {{' ', ' ', ' '},
                 {' ', ' ', ' '},
                 {' ', ' ', ' '}};
+
         printBoard(board);
+
         while (true) {
             playerTurn(board, scanner);
             if (isGameFinished(board)) {
@@ -21,18 +27,21 @@ public class Main {
             }
             printBoard(board);
         }
+        System.out.println("Your score is: " + playerScoreCounter + "\nComputer score is: " + computerScoreCounter);
         scanner.close();
-
+        System.out.println("Game over!" + "\nThanks for joining <3");
     }
 
     public static boolean isGameFinished(char[][] board) {
         if (hasContestantWon(board, 'X')) {
             printBoard(board);
             System.out.println("You win!");
+            playerScoreCounter++;
             return true;
         } else if (hasContestantWon(board, 'O')) {
             printBoard(board);
             System.out.println("Computer won!");
+            computerScoreCounter++;
             return true;
         } else {
             for (int i = 0; i < board.length; i++) {
@@ -47,7 +56,6 @@ public class Main {
             return true;
         }
     }
-//    Would you like to play again? (Y/N)
 
     public static boolean hasContestantWon(char[][] board, char symbol) {
         return (board[0][0] == symbol && board[0][1] == symbol && board[0][2] == symbol) ||
